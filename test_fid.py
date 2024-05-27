@@ -18,7 +18,7 @@ parser.add_argument('--images', type=str, default='data/admnet_guided_imagenet25
 args = parser.parse_args()
 
 dataset = np.load(args.images)['arr_0']
-truth_stats = np.load('data/VIRTUAL_imagenet256_labeled.npz')
+truth_stats = np.load('data/imagenet256_fidstats_openai.npz')
 mu_truth = truth_stats['mu']
 sigma_truth = truth_stats['sigma']
 
@@ -26,6 +26,13 @@ batch_size = 256
 activations = []
 for i in range(0, len(dataset) // batch_size):
     batch = dataset[i*batch_size:i*batch_size+batch_size]
+
+    # For the last batch, we need to pad with zeros
+    if batch.shape[0] < batch_size:
+        zeros_added = batch_size - batch.shape[0]
+        batch = np.concatenate([batch, np.zeros((batch_size - batch.shape[0], 256, 256, 3))], axis=0)
+    else:
+        zeros_added = 0
 
     print('{:f}'.format((len(activations)*batch_size) / dataset.shape[0]))
     batch = jnp.array(batch)
@@ -37,6 +44,8 @@ for i in range(0, len(dataset) // batch_size):
     preds = get_activations(batch)
     preds = preds.reshape((batch_size, -1))
     preds = np.array(preds)
+    if zeros_added > 0:
+        preds = preds[:-zeros_added]
     activations.append(preds)
 activations = np.concatenate(activations, axis=0)
 mu1 = np.mean(activations, axis=0)

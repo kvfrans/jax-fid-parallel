@@ -17,15 +17,16 @@ wget -P data/ https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_
 wget -P data/ https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/admnet_imagenet256.npz
 wget -P data/ https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/admnet_guided_imagenet256.npz
 ```
-Then, you can run `test_imagenet.py` to generate mean+covariance across the entire dataset. The code requires setting up Imagenet with `tfds` (https://www.tensorflow.org/datasets/catalog/imagenet2012) or you can load Imagenet in a different way.
 Afterwards, calculate FID of the generated images using:
 ```
 python test_fid.py --images data/VIRTUAL_imagenet256_labeled.npz
 python test_fid.py --images data/admnet_guided_imagenet256.npz
 python test_fid.py --images data/admnet_imagenet256.npz
 ```
+The reference statistics provided in this repo are the same as those in the OpenAI guided diffusion repo (`VIRTUAL_imagenet256_labeled.npz`).
+
 You should get the following numbers:
-| Data              | FID (ours) | FID (ADM paper) |
+| Data              | FID (ours) | FID (ADM paper / OpenAI Guided Diffusion) |
 | :---------------- | :------: | ----: |
 | Imagenet256 Training (10K)        |   3.9028747   | N/A |
 | ADM (50K)    |  11.052   | 10.94 |
@@ -33,4 +34,4 @@ You should get the following numbers:
 
 
 ## History
-This repo is an adaption of https://github.com/matthias-wright/jax-fid, which traces its origins from a Pytorch port (https://github.com/mseitzer/pytorch-fid) of the original Tensorflow implementation (https://github.com/bioinf-jku/TTUR)
+This repo is an adaption of https://github.com/matthias-wright/jax-fid, which traces its origins from a Pytorch port (https://github.com/mseitzer/pytorch-fid) of the original Tensorflow implementation (https://github.com/bioinf-jku/TTUR). Numerically, this implementation was tested to match the results of (OpenAI guided diffusion evaluation suite)[https://github.com/openai/guided-diffusion/tree/main/evaluations] as many papers use this measurement.

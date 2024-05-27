@@ -13,17 +13,23 @@ The `fid.py` file implements two core functions, `get_fid_network()` and `fid_fr
 We provide some test scripts that calculates FID from images provided at https://github.com/openai/guided-diffusion/tree/main/evaluations.
 First, you will want to download some reference images.
 ```
-wget https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/VIRTUAL_imagenet256_labeled.npz data/
-wget https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/admnet_imagenet256.npz data/
-wget https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/admnet_guided_imagenet256.npz data/
+wget -P data/ https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/VIRTUAL_imagenet256_labeled.npz
+wget -P data/ https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/admnet_imagenet256.npz
+wget -P data/ https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/admnet_guided_imagenet256.npz
 ```
 Then, you can run `test_imagenet.py` to generate mean+covariance across the entire dataset. The code requires setting up Imagenet with `tfds` (https://www.tensorflow.org/datasets/catalog/imagenet2012) or you can load Imagenet in a different way.
 Afterwards, calculate FID of the generated images using:
 ```
-python test_adm.py --images data/admnet_guided_imagenet256.npz
-python test_adm.py --images data/admnet_imagenet256.npz
+python test_fid.py --images data/VIRTUAL_imagenet256_labeled.npz
+python test_fid.py --images data/admnet_guided_imagenet256.npz
+python test_fid.py --images data/admnet_imagenet256.npz
 ```
-
+You should get the following numbers:
+| Data              | FID (ours) | FID (ADM paper) |
+| :---------------- | :------: | ----: |
+| Imagenet256 Training (10K)        |   7.6874113   | N/A |
+| ADM (50K)    |  False   | 19.99 |
+| ADM-G (50K)           |   True   | 4.59 |
 
 
 ## History

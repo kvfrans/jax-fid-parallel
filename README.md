@@ -27,9 +27,9 @@ python test_fid.py --images data/admnet_imagenet256.npz
 You should get the following numbers:
 | Data              | FID (ours) | FID (ADM paper) |
 | :---------------- | :------: | ----: |
-| Imagenet256 Training (10K)        |   7.6874113   | N/A |
-| ADM (50K)    |  False   | 10.94 |
-| ADM-G (50K)           |   True   | 4.59 |
+| Imagenet256 Training (10K)        |   3.9028747   | N/A |
+| ADM (50K)    |  11.052   | 10.94 |
+| ADM-G (50K)           |   4.60   | 4.59 |
 
 
 ## History

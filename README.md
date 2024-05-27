@@ -28,7 +28,7 @@ You should get the following numbers:
 | Data              | FID (ours) | FID (ADM paper) |
 | :---------------- | :------: | ----: |
 | Imagenet256 Training (10K)        |   7.6874113   | N/A |
-| ADM (50K)    |  False   | 19.99 |
+| ADM (50K)    |  False   | 10.94 |
 | ADM-G (50K)           |   True   | 4.59 |
 
 

@@ -34,4 +34,4 @@ You should get the following numbers:
 
 
 ## History
-This repo is an adaption of https://github.com/matthias-wright/jax-fid, which traces its origins from a Pytorch port (https://github.com/mseitzer/pytorch-fid) of the original Tensorflow implementation (https://github.com/bioinf-jku/TTUR)
+This repo is an adaption of https://github.com/matthias-wright/jax-fid, which traces its origins from a Pytorch port (https://github.com/mseitzer/pytorch-fid) of the original Tensorflow implementation (https://github.com/bioinf-jku/TTUR). Numerically, this implementation was tested to match the results of (OpenAI guided diffusion evaluation suite)[https://github.com/openai/guided-diffusion/tree/main/evaluations] as many papers use this measurement.

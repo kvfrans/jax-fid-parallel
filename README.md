@@ -7,7 +7,7 @@ This repo is a standalone helper file for doing FID evaluation when training gen
 Copy the `fid.py` file into your project directory. Inception-v3 weights will be downloaded automatically on first run.
 
 ## Usage
-The `fid.py` file implements two core functions, `get_fid_network()` and `fid_from_stats()`. Use the first function to calculate the Inception activations of a batch of images (provided in numpy/jax arrays). The images should be normalized between `[-1, 1]`. You should calculate the activations over a decently sized set, at least 10000. Then, calculate the mean and covariance with `np.mean(a, axis=0)` and `np.cov(a, rowvar=False)`. You can then use `fid_from_stats` to calculate FID between two sets of mean+covariance.
+The `fid.py` file implements two core functions, `get_fid_network()` and `fid_from_stats()`. Use the first function to calculate the Inception activations of a batch of images (provided in numpy/jax arrays). The images should be normalized between `[-1, 1]`. Also make sure they are resized to be `[299, 299, 3]`. You should calculate the activations over a decently sized set, at least 10000. Then, calculate the mean and covariance with `np.mean(a, axis=0)` and `np.cov(a, rowvar=False)`. You can then use `fid_from_stats` to calculate FID between two sets of mean+covariance.
 
 ## Sanity Checking
 We provide some test scripts that calculates FID from images provided at https://github.com/openai/guided-diffusion/tree/main/evaluations.

@@ -29,7 +29,7 @@ def get_fid_network():
     # Returns a function with input of images in range [-1, 1], and output of 2048-length activations.
     model = InceptionV3(pretrained=True)
     rng = jax.random.PRNGKey(0)
-    params = model.init(rng, jnp.ones((1, 256, 256, 3)))
+    params = model.init(rng, jnp.ones((1, 299, 299, 3)))
     params = flax.jax_utils.replicate(params, devices=jax.local_devices())
     apply_fn = jax.pmap(functools.partial(model.apply, train=False))
     apply_fn = functools.partial(apply_fn, params)
